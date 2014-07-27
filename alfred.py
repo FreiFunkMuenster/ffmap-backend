@@ -18,22 +18,22 @@ class alfred:
         except:
           pass
 
-       if 'statistics' in node:
-         try:
-           node_alias['uptime'] = node['statistics']['uptime']
-         except:
-           pass
+      if 'statistics' in node:
+        try:
+          node_alias['uptime'] = node['statistics']['uptime']
+        except:
+          pass
 
-         try:
-           node_alias['tx_bytes'] = node['statistics']['tx_bytes']
-           node_alias['rx_bytes'] = node['statistics']['rx_bytes']
-         except:
-           pass
+        try:
+          node_alias['tx_bytes'] = node['statistics']['tx_bytes']
+          node_alias['rx_bytes'] = node['statistics']['rx_bytes']
+        except:
+          pass
 
-         try:
-           node_alias['loadavg'] = node['statistics']['loadavg']
-         except:
-           pass
+        try:
+          node_alias['loadavg'] = node['statistics']['loadavg']
+        except:
+          pass
 
       try:
         node_alias['firmware'] = node['software']['firmware']['release']
