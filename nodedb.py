@@ -238,6 +238,27 @@ class NodeDB:
       if 'id' in alias:
         node.id = alias['id']
 
+      if 'uptime' in alias:
+        node.uptime = alias['uptime']
+
+      if 'tx_bytes' in alias:
+        node.tx_bytes = alias['tx_bytes']
+
+      if 'rx_bytes' in alias:
+        node.rx_bytes = alias['rx_bytes']
+
+      if 'loadavg' in alias:
+        node.loadavg = alias['loadavg']
+
+      if 'autoupdater' in alias:
+        node.autoupdater = alias['autoupdater']
+
+      if 'branch' in alias:
+        node.branch = alias['branch']
+
+      if 'hardware' in alias:
+        node.hardware = alias['hardware']
+
   # list of macs
   # if options['gateway']:
   #   mark_gateways(options['gateway'])

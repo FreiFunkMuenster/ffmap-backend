@@ -13,6 +13,13 @@ class Node():
     self.firmware = None
     self.clientcount = 0
     self.lastseen = 0
+    self.uptime = 0.0
+    self.tx_bytes = 0
+    self.rx_bytes = 0
+    self.loadavg = 0.0
+    self.autoupdater = False
+    self.branch = ""
+    self.hardware = ""
 
   def add_mac(self, mac):
     mac = mac.lower()

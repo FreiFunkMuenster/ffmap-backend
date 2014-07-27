@@ -17,7 +17,14 @@ class D3MapBuilder:
                         'geo': [float(x) for x in x.gps.split(" ")] if x.gps else None,
                         'firmware': x.firmware,
                         'flags': x.flags,
-                        'clientcount': x.clientcount
+                        'clientcount': x.clientcount,
+                        'uptime': x.uptime,
+                        'tx_bytes': x.tx_bytes,
+                        'rx_bytes': x.rx_bytes,
+                        'loadavg': x.loadavg,
+                        'autoupdater': x.autoupdater,
+                        'branch': x.branch,
+                        'hardware': x.hardware
                        } for x in nodes]
 
     links = self._db.get_links()
