@@ -17,41 +17,34 @@ class alfred:
           node_alias['gps'] = str(node['location']['latitude']) + ' ' + str(node['location']['longitude'])
         except:
           pass
-
       if 'statistics' in node:
         try:
           node_alias['uptime'] = node['statistics']['uptime']
         except:
           pass
-
         try:
-          node_alias['tx_bytes'] = node['statistics']['tx_bytes']
-          node_alias['rx_bytes'] = node['statistics']['rx_bytes']
+          node_alias['tx_bytes'] = node['statistics']['traffic']['tx_bytes']
+          node_alias['rx_bytes'] = node['statistics']['traffic']['rx_bytes']
         except:
           pass
-
         try:
           node_alias['loadavg'] = node['statistics']['loadavg']
         except:
           pass
-
       try:
         node_alias['firmware'] = node['software']['firmware']['release']
         node_alias['autoupdater'] = node['software']['autoupdater']['enabled']
         node_alias['branch'] = node['software']['autoupdater']['branch']
       except KeyError:
         pass
-
       try:
         node_alias['hardware'] = node['hardware']['model']
       except KeyError:
         pass
-
       try:
         node_alias['id'] = node['network']['mac']
       except KeyError:
         pass
-
       if 'hostname' in node:
         node_alias['name'] = node['hostname']
       elif 'name' in node:
