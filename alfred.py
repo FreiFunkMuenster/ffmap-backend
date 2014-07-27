@@ -23,8 +23,8 @@ class alfred:
         except:
           pass
         try:
-          node_alias['tx_bytes'] = node['statistics']['traffic']['tx_bytes']
-          node_alias['rx_bytes'] = node['statistics']['traffic']['rx_bytes']
+          node_alias['tx_bytes'] = node['statistics']['traffic']['tx']['bytes']
+          node_alias['rx_bytes'] = node['statistics']['traffic']['rx']['bytes']
         except:
           pass
         try:
