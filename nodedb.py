@@ -58,6 +58,10 @@ class NodeDB:
             node.name = n['name']
             node.lastseen = n['lastseen']
             node.gps = n['geo']
+            node.firmware = n['firmware']
+            node.autoupdater = n['autoupdater']
+            node.branch = n['branch']
+            node.hardware = n['hardware']
             self._nodes.append(node)
 
     except:
