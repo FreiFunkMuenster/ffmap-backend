@@ -35,6 +35,10 @@ class NodeDB:
                  , 'name': node.name
                  , 'lastseen': node.lastseen
                  , 'geo': node.gps
+                 , 'firmware': node.firmware
+                 , 'autoupdater': node.autoupdater
+                 , 'branch': node.branch
+                 , 'hardware': node.hardware
                  })
 
     with open(filename, "w") as f:
