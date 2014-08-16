@@ -24,7 +24,8 @@ class D3MapBuilder:
                         'loadavg': x.loadavg,
                         'autoupdater': x.autoupdater,
                         'branch': x.branch,
-                        'hardware': x.hardware
+                        'hardware': x.hardware,
+                        'gateway': x.gateway
                        } for x in nodes]
 
     links = self._db.get_links()

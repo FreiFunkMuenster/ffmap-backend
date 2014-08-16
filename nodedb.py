@@ -39,6 +39,7 @@ class NodeDB:
                  , 'autoupdater': node.autoupdater
                  , 'branch': node.branch
                  , 'hardware': node.hardware
+                 , 'gateway': node.gateway
                  })
 
     with open(filename, "w") as f:
@@ -63,6 +64,8 @@ class NodeDB:
             node.branch = n['branch']
             node.hardware = n['hardware']
             self._nodes.append(node)
+            node.gateway = n['gateway']
+            self._nodes.append(node)            
 
     except:
       pass
@@ -266,6 +269,9 @@ class NodeDB:
 
       if 'hardware' in alias:
         node.hardware = alias['hardware']
+        
+      if 'gateway' in alias:
+        node.gateway = alias['gateway']        
 
   # list of macs
   # if options['gateway']:

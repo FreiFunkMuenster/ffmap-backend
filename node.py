@@ -20,6 +20,7 @@ class Node():
     self.autoupdater = False
     self.branch = ""
     self.hardware = ""
+    self.gateway = ""
 
   def add_mac(self, mac):
     mac = mac.lower()
