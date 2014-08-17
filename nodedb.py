@@ -63,7 +63,6 @@ class NodeDB:
             node.autoupdater = n['autoupdater']
             node.branch = n['branch']
             node.hardware = n['hardware']
-            self._nodes.append(node)
             node.gateway = n['gateway']
             self._nodes.append(node)            
 
