@@ -45,6 +45,8 @@ class rrd:
         nodes[source].clients += 1
       elif target in nodes and not source in nodes:
         nodes[target].clients += 1
+      elif link.type == 'client':
+        nodes[db.get_nodes()[link.source.id].id].clients += 1
 
     self.globalDb.update(len(nodes), clientCount)
     for node in nodes.values():
