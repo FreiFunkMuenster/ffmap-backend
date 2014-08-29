@@ -225,13 +225,10 @@ class NodeDB:
       try:
         node = self.maybe_node_by_mac([mac])
       except:
-        try:
-          node = self.maybe_node_by_fuzzy_mac(mac)
-        except:
-          # create an offline node
-          node = Node()
-          node.add_mac(mac)
-          self._nodes.append(node)
+        # create an offline node
+        node = Node()
+        node.add_mac(mac)
+        self._nodes.append(node)
 
       if 'name' in alias:
         node.name = alias['name']
