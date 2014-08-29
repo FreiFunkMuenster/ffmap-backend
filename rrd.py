@@ -10,7 +10,7 @@ class rrd:
               , databaseDirectory
               , imagePath
               , displayTimeGlobal = "7d"
-              , displayTimeNode = "1d"
+              , displayTimeNode = "3d"
               ):
     self.dbPath = databaseDirectory
     self.globalDb = GlobalRRD(self.dbPath)
