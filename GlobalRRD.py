@@ -25,8 +25,8 @@ class GlobalRRD(RRD):
     def graph(self, filename, timeframe):
         args = ["rrdtool", 'graph', filename,
                 '-s', '-' + timeframe,
-                '-w', '800',
-                '-h' '400',
+                '-w', '1100',
+                '-h' '600',
                 'DEF:nodes=' + self.filename + ':nodes:AVERAGE',
                 'LINE1:nodes#F00:nodes\\l',
                 'DEF:clients=' + self.filename + ':clients:AVERAGE',
