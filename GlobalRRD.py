@@ -33,3 +33,15 @@ class GlobalRRD(RRD):
                 'LINE2:clients#00F:clients',
         ]
         subprocess.check_output(args)
+
+    def graphMonthly(self, filename, timeframe):
+        args = ["rrdtool", 'graph', filename,
+                '-s', '-' + timeframe,
+                '-w', '4800',
+                '-h' '600',
+                'DEF:nodes=' + self.filename + ':nodes:AVERAGE',
+                'LINE1:nodes#F00:nodes\\l',
+                'DEF:clients=' + self.filename + ':clients:AVERAGE',
+                'LINE2:clients#00F:clients',
+        ]
+        subprocess.check_output(args)
