@@ -72,12 +72,15 @@ db.count_clients()
 if options['obscure']:
   db.obscure_clients()
 
-db.load_state("state.json")
+db.load_state("/tmp/state.json")
 
 # remove nodes that have been offline for more than 30 days
 db.prune_offline(time.time() - 30*86400)
 
-db.dump_state("state.json")
+# remove nodes that have no name
+db.prune_invalid()
+
+db.dump_state("/tmp/state.json")
 
 scriptdir = os.path.dirname(os.path.realpath(__file__))
 
