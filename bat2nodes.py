@@ -72,17 +72,16 @@ db.count_clients()
 if options['obscure']:
   db.obscure_clients()
 
-db.load_state("/tmp/state.json")
+
+scriptdir = os.path.dirname(os.path.realpath(__file__))
+
+db.load_state(scriptdir + "/state.json")
 
 # remove nodes that have been offline for more than 30 days
 db.prune_offline(time.time() - 30*86400)
 
-# remove nodes that have no name
-db.prune_invalid()
+db.dump_state(scriptdir + "/state.json")
 
-db.dump_state("/tmp/state.json")
-
-scriptdir = os.path.dirname(os.path.realpath(__file__))
 
 m = D3MapBuilder(db)
 

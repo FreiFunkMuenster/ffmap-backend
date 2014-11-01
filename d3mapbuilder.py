@@ -11,6 +11,8 @@ class D3MapBuilder:
     now = datetime.datetime.utcnow().replace(microsecond=0)
 
     nodes = self._db.get_nodes()
+    #remove invalid nodes (without name)
+    #nodes = list(filter(lambda x: x.name != "", nodes))
 
     output['nodes'] = [{'name': x.name, 'id': x.id,
                         'macs': ', '.join(x.macs),
@@ -30,6 +32,8 @@ class D3MapBuilder:
 
     links = self._db.get_links()
 
+    #remove invalid links
+    #nodes = list(filter(lambda x: x.name != "", nodes))
     output['links'] = [{'source': x.source.id, 'target': x.target.id,
                         'quality': x.quality,
                         'type': x.type,

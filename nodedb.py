@@ -23,10 +23,6 @@ class NodeDB:
   def prune_offline(self, timestamp):
     self._nodes = list(filter(lambda x: x.lastseen >= timestamp, self._nodes))
 
-  # remove nodes without a name 
-  def prune_invalid(self):
-    self._nodes = list(filter(lambda x: x.name == '', self._nodes))
-
   # write persistent state to file
   def dump_state(self, filename):
     obj = []
@@ -55,20 +51,21 @@ class NodeDB:
       with open(filename, "r") as f:
         obj = json.load(f)
         for n in obj:
-          try:
-            node = self.maybe_node_by_id(n['id'])
-          except:
-            node = Node()
-            node.id = n['id']
-            node.name = n['name']
-            node.lastseen = n['lastseen']
-            node.gps = n['geo']
-            node.firmware = n['firmware']
-            node.autoupdater = n['autoupdater']
-            node.branch = n['branch']
-            node.hardware = n['hardware']
-            node.gateway = n['gateway']
-            self._nodes.append(node)            
+          if (n['name'] != ''):
+            try:
+              node = self.maybe_node_by_id(n['id'])
+            except:
+              node = Node()
+              node.id = n['id']
+              node.name = n['name']
+              node.lastseen = n['lastseen']
+              node.gps = n['geo']
+              node.firmware = n['firmware']
+              node.autoupdater = n['autoupdater']
+              node.branch = n['branch']
+              node.hardware = n['hardware']
+              node.gateway = n['gateway']
+              self._nodes.append(node)            
 
     except:
       pass
