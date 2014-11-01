@@ -9,11 +9,7 @@ class rrd:
   def __init__( self
               , databaseDirectory
               , imagePath
-<<<<<<< HEAD
-              , displayTimeMonthly = "31d"
-=======
               , displayTimeMontly = "31d"
->>>>>>> 9282d39285c243e0ca38a65465f07473deffb5f8
               , displayTimeGlobal = "7d"
               , displayTimeNodeMonthly = "28d"
               , displayTimeNode = "3d"
@@ -21,11 +17,7 @@ class rrd:
     self.dbPath = databaseDirectory
     self.globalDb = GlobalRRD(self.dbPath)
     self.imagePath = imagePath
-<<<<<<< HEAD
-    self.displayTimeMonthly = displayTimeMonthly
-=======
     self.displayTimeMontly = displayTimeMontly
->>>>>>> 9282d39285c243e0ca38a65465f07473deffb5f8
     self.displayTimeGlobal = displayTimeGlobal
     self.displayTimeNode = displayTimeNode
     self.displayTimeNodeMonthly = displayTimeNodeMonthly
@@ -73,11 +65,7 @@ class rrd:
     """
 
     self.globalDb.graph(os.path.join(self.imagePath, "globalGraph.png"), self.displayTimeGlobal)
-<<<<<<< HEAD
-    self.globalDb.graphMonthly(os.path.join(self.imagePath, "globalGraphMonthly.png"), self.displayTimeMonthly)
-=======
     self.globalDb.graphMonthly(os.path.join(self.imagePath, "globalGraphMonthly.png"), self.displayTimeMontly)
->>>>>>> 9282d39285c243e0ca38a65465f07473deffb5f8
 
     nodeDbFiles = os.listdir(self.dbPath)
 
