@@ -25,7 +25,7 @@ class NodeDB:
 
   # remove nodes without a name 
   def prune_invalid(self):
-    self._nodes = list(filter(lambda x: x.name == '', self._nodes)
+    self._nodes = list(filter(lambda x: x.name == '', self._nodes))
 
   # write persistent state to file
   def dump_state(self, filename):
