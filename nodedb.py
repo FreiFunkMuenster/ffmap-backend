@@ -28,12 +28,13 @@ class NodeDB:
     obj = []
 
     for node in self._nodes:
-      obj.append({ 'id': node.id
-                 , 'name': node.name
-                 , 'lastseen': node.lastseen
-                 , 'firstseen': node.firstseen
-                 , 'geo': node.gps
-                 })
+	  if (node.name != ''):
+        obj.append({ 'id': node.id
+                   , 'name': node.name
+                   , 'lastseen': node.lastseen
+                   , 'firstseen': node.firstseen
+                   , 'geo': node.gps
+                   })
 
     with open(filename, "w") as f:
       json.dump(obj, f)
