@@ -8,7 +8,7 @@ import time
 
 from batman import batman
 from alfred import alfred
-from rrd import rrd
+from rrddb import rrd
 from nodedb import NodeDB
 from d3mapbuilder import D3MapBuilder
 
@@ -29,10 +29,8 @@ parser.add_argument('-a', '--aliases',
                   metavar='FILE')
 
 parser.add_argument('-m', '--mesh', action='append',
+                  default=["bat0"],
                   help='batman mesh interface')
-
-parser.add_argument('-o', '--obscure', action='store_true',
-                  help='obscure client macs')
 
 parser.add_argument('-A', '--alfred', action='store_true',
                   help='retrieve aliases from alfred')
@@ -46,17 +44,11 @@ options = vars(args)
 
 db = NodeDB(int(time.time()))
 
-if options['mesh']:
-  for mesh_interface in options['mesh']:
-    bm = batman(mesh_interface)
-    db.parse_vis_data(bm.vis_data(options['alfred']))
-    for gw in bm.gateway_list():
-      db.mark_gateways(gw['mac'])
-else:
-  bm = batman()
+for mesh_interface in options['mesh']:
+  bm = batman(mesh_interface)
   db.parse_vis_data(bm.vis_data(options['alfred']))
   for gw in bm.gateway_list():
-    db.mark_gateways([gw['mac']])
+    db.mark_gateway(gw)
 
 if options['aliases']:
   for aliases in options['aliases']:
@@ -65,23 +57,15 @@ if options['aliases']:
 if options['alfred']:
   af = alfred()
   db.import_aliases(af.aliases())
-  db.import_aliases(af.statistics())
 
-db.count_clients()
-
-if options['obscure']:
-  db.obscure_clients()
-
-
-scriptdir = os.path.dirname(os.path.realpath(__file__))
-
-db.load_state(scriptdir + "/state.json")
+db.load_state("state.json")
 
 # remove nodes that have been offline for more than 30 days
 db.prune_offline(time.time() - 30*86400)
 
-db.dump_state(scriptdir + "/state.json")
+db.dump_state("state.json")
 
+scriptdir = os.path.dirname(os.path.realpath(__file__))
 
 m = D3MapBuilder(db)
 

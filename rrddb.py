@@ -9,18 +9,14 @@ class rrd:
   def __init__( self
               , databaseDirectory
               , imagePath
-              , displayTimeMontly = "31d"
               , displayTimeGlobal = "7d"
-              , displayTimeNodeMonthly = "28d"
-              , displayTimeNode = "3d"
+              , displayTimeNode = "1d"
               ):
     self.dbPath = databaseDirectory
     self.globalDb = GlobalRRD(self.dbPath)
     self.imagePath = imagePath
-    self.displayTimeMontly = displayTimeMontly
     self.displayTimeGlobal = displayTimeGlobal
     self.displayTimeNode = displayTimeNode
-    self.displayTimeNodeMonthly = displayTimeNodeMonthly
 
     self.currentTimeInt = (int(time.time())/60)*60
     self.currentTime    = str(self.currentTimeInt)
@@ -31,29 +27,12 @@ class rrd:
       os.mkdir(self.imagePath)
 
   def update_database(self,db):
-    nodes = {}
-    clientCount = 0
-    for node in db.get_nodes():
-      if node.flags['online']:
-        if not node.flags['client']:
-          nodes[node.id] = node
-          node.clients = 0;
-          if 'legacy' in node.flags and node.flags['legacy']:
-            clientCount -= 1
-        else:
-          clientCount += 1
-    for link in db.get_links():
-      source = link.source.interface
-      target = link.target.interface
-      if source in nodes and not target in nodes:
-        nodes[source].clients += 1
-      elif target in nodes and not source in nodes:
-        nodes[target].clients += 1
-      elif link.type == 'client':
-        nodes[db.get_nodes()[link.source.id].id].clients += 1
+    nodes = db.get_nodes()
+    clientCount = sum(map(lambda d: d.clientcount, nodes))
 
-    self.globalDb.update(len(nodes), clientCount)
-    for node in nodes.values():
+    curtime = time.time() - 60
+    self.globalDb.update(len(list(filter(lambda x: x.lastseen >= curtime, nodes))), clientCount)
+    for node in nodes:
       rrd = NodeRRD(
         os.path.join(self.dbPath, str(node.id).replace(':', '') + '.rrd'),
         node
@@ -65,7 +44,6 @@ class rrd:
     """
 
     self.globalDb.graph(os.path.join(self.imagePath, "globalGraph.png"), self.displayTimeGlobal)
-    self.globalDb.graphMonthly(os.path.join(self.imagePath, "globalGraphMonthly.png"), self.displayTimeMontly)
 
     nodeDbFiles = os.listdir(self.dbPath)
 
@@ -77,4 +55,3 @@ class rrd:
       if nodeName[1] == 'rrd' and not nodeName[0] == "nodes":
         rrd = NodeRRD(os.path.join(self.dbPath, fileName))
         rrd.graph(self.imagePath, self.displayTimeNode)
-        #rrd.graphMonthly(self.imagePath, self.displayTimeNodeMonthly)

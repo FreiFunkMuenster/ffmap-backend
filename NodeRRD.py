@@ -34,7 +34,7 @@ class NodeRRD(RRD):
         return os.path.basename(self.filename).rsplit('.', 2)[0] + "monthly.png"
 
     def update(self):
-        super().update({'upstate': 1, 'clients': self.node.clients})
+        super().update({'upstate': 1, 'clients': self.node.clientcount})
 
     def graph(self, directory, timeframe):
         """

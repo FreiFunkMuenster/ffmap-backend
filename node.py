@@ -7,20 +7,12 @@ class Node():
     self.flags = dict({
       "online": False,
       "gateway": False,
-      "client": False
     })
     self.gps = None
     self.firmware = None
     self.clientcount = 0
     self.lastseen = 0
-    self.uptime = 0.0
-    self.tx_bytes = 0
-    self.rx_bytes = 0
-    self.loadavg = 0.0
-    self.autoupdater = False
-    self.branch = ""
-    self.hardware = ""
-    self.gateway = ""
+    self.firstseen = 0
 
   def add_mac(self, mac):
     mac = mac.lower()
@@ -32,7 +24,7 @@ class Node():
     self.interfaces[mac] = Interface()
 
   def __repr__(self):
-    return self.macs.__repr__()
+    return '<Node %s>' % self.macs.__repr__()
 
 class Interface():
   def __init__(self):
