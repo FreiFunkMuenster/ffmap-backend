@@ -28,7 +28,7 @@ class NodeDB:
     obj = []
 
     for node in self._nodes:
-	  if (node.name != ''):
+      if (node.name != ''):
         obj.append({ 'id': node.id
                    , 'name': node.name
                    , 'lastseen': node.lastseen
